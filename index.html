@@ -1184,6 +1184,35 @@
     <script src="js/gallery-init.js"></script>
     <!-- Load Scripts End -->
     
+     <!-- WhatsApp Floating Button -->
+<a href="https://wa.me/923142990250?text=Hello%21%20I%20would%20like%20to%20connect." target="_blank" class="whatsapp-button">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+</a>
+<!-- WhatsApp Button CSS inside style tag -->
+    <style>
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;      /* distance from bottom */
+            right: 20px;       /* distance from right */
+            z-index: 1000;     /* make sure it’s on top */
+            width: 60px;       /* size of button */
+            height: 60px;
+            border-radius: 50%; 
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-button img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .whatsapp-button:hover {
+            transform: scale(1.1);  /* button grows slightly on hover */
+        }
+    </style>
+
   </body>
 
 </html>
