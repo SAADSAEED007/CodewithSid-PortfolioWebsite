@@ -3391,7 +3391,8 @@ form textarea:required:valid {
   padding: 2.5rem 3rem;
 }
 .gallery__descr h5,
-.gallery__descr p {
+.gallery__descr p,
+.gallery__descr .btn {
   display: none;
 }
 .gallery__descr .rounded-tag {
