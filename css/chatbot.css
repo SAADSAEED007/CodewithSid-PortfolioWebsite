@@ -11,7 +11,7 @@
 /* Chatbot Widget Container */
 .sidbot-widget {
   position: fixed;
-  bottom: 100px;
+  bottom: 24px;
   right: 20px;
   z-index: 9999;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -54,20 +54,37 @@
   transform: translateY(-50%);
   background: #1f2937;
   color: white;
-  padding: 8px 14px;
+  padding: 10px 16px;
   border-radius: 8px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   white-space: nowrap;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
   pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .sidbot-trigger:hover::after {
   opacity: 1;
   visibility: visible;
+}
+
+/* First-time tooltip - always visible */
+.sidbot-trigger.show-tooltip::after {
+  opacity: 1;
+  visibility: visible;
+  animation: tooltip-pulse 2s ease-in-out infinite;
+}
+
+@keyframes tooltip-pulse {
+  0%, 100% {
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    transform: translateY(-50%) scale(1.05);
+  }
 }
 
 /* Pulse Animation */

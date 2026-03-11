@@ -21,6 +21,7 @@
     botAvatar: '🤖',
     botAvatarImage: 'img/avatars/AI_bot.jpeg',
     storageKey: 'sidbot_chat_history',
+    tooltipShownKey: 'sidbot_tooltip_shown',
     contextKey: 'sidbot_context',
     typingDelay: 800,
     charTypingSpeed: 15, // ms per character for typing effect
@@ -371,6 +372,33 @@
       this.loadHistory();
       this.loadContext();
       this.detectColorScheme();
+      this.showFirstTimeTooltip();
+    }
+
+    // ========================================
+    // FIRST TIME TOOLTIP
+    // ========================================
+    
+    showFirstTimeTooltip() {
+      // Check if tooltip has been shown before
+      const tooltipShown = localStorage.getItem(CONFIG.tooltipShownKey);
+      
+      if (!tooltipShown) {
+        // Add class to show tooltip
+        this.trigger.classList.add('show-tooltip');
+        
+        // Hide tooltip after 5 seconds or on first interaction
+        const hideTooltip = () => {
+          this.trigger.classList.remove('show-tooltip');
+          localStorage.setItem(CONFIG.tooltipShownKey, 'true');
+        };
+        
+        // Hide on click
+        this.trigger.addEventListener('click', hideTooltip, { once: true });
+        
+        // Auto-hide after 5 seconds
+        setTimeout(hideTooltip, 5000);
+      }
     }
 
     // ========================================
