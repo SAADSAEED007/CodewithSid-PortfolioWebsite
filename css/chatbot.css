@@ -1,0 +1,602 @@
+/**
+ * Sid Bot - AI Chatbot Widget Styles
+ * Portfolio: CodewithSid
+ * Author: Saad Saeed
+ */
+
+/* ========================================
+   CHATBOT CONTAINER & TRIGGER BUTTON
+   ======================================== */
+
+/* Chatbot Widget Container */
+.sidbot-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Trigger Button */
+.sidbot-trigger {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: sidbot-pulse 2s infinite;
+  position: relative;
+}
+
+.sidbot-trigger:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
+}
+
+.sidbot-trigger svg {
+  width: 28px;
+  height: 28px;
+  fill: white;
+}
+
+/* Tooltip */
+.sidbot-trigger::after {
+  content: "Chat with Sid Bot 👋";
+  position: absolute;
+  right: 70px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #1f2937;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
+}
+
+.sidbot-trigger:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Pulse Animation */
+@keyframes sidbot-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* ========================================
+   CHAT WINDOW
+   ======================================== */
+
+.sidbot-window {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  width: 360px;
+  height: 500px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(124, 58, 237, 0.25), 0 0 0 1px rgba(124, 58, 237, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+.sidbot-window.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  animation: sidbot-slideUp 0.3s ease;
+}
+
+@keyframes sidbot-slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   CHAT HEADER
+   ======================================== */
+
+.sidbot-header {
+  background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 20px 20px 0 0;
+}
+
+.sidbot-header-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidbot-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.sidbot-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.sidbot-avatar-fallback {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.sidbot-header-text {
+  color: white;
+}
+
+.sidbot-header-text h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.sidbot-header-text p {
+  margin: 2px 0 0 0;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.sidbot-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.sidbot-close:hover {
+  transform: scale(1.1);
+}
+
+.sidbot-close svg {
+  width: 24px;
+  height: 24px;
+  stroke: white;
+  stroke-width: 2;
+}
+
+/* ========================================
+   MESSAGES AREA
+   ======================================== */
+
+.sidbot-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scroll-behavior: smooth;
+}
+
+.sidbot-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidbot-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidbot-messages::-webkit-scrollbar-thumb {
+  background: #E9D5FF;
+  border-radius: 3px;
+}
+
+.sidbot-messages::-webkit-scrollbar-thumb:hover {
+  background: #D8B4FE;
+}
+
+/* Message Bubbles */
+.sidbot-message {
+  max-width: 85%;
+  padding: 12px 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  animation: sidbot-fadeInUp 0.3s ease;
+  position: relative;
+}
+
+@keyframes sidbot-fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sidbot-message.bot {
+  align-self: flex-start;
+  background: #F3E8FF;
+  color: #1f2937;
+  border-radius: 18px 18px 18px 4px;
+}
+
+.sidbot-message.user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+  color: white;
+  border-radius: 18px 18px 4px 18px;
+}
+
+.sidbot-message-time {
+  font-size: 10px;
+  opacity: 0.6;
+  margin-top: 4px;
+  display: block;
+}
+
+.sidbot-message.user .sidbot-message-time {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Typing Indicator */
+.sidbot-typing {
+  align-self: flex-start;
+  background: #F3E8FF;
+  padding: 16px 20px;
+  border-radius: 18px 18px 18px 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sidbot-typing-dot {
+  width: 8px;
+  height: 8px;
+  background: #7C3AED;
+  border-radius: 50%;
+  animation: sidbot-bounce 1.4s infinite ease-in-out both;
+}
+
+.sidbot-typing-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.sidbot-typing-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes sidbot-bounce {
+  0%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-6px);
+  }
+}
+
+/* ========================================
+   QUICK REPLY CHIPS
+   ======================================== */
+
+.sidbot-chips {
+  padding: 0 20px 12px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.sidbot-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.sidbot-chip {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  border: 2px solid #7C3AED;
+  background: white;
+  color: #7C3AED;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.sidbot-chip:hover {
+  background: #7C3AED;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.sidbot-chip:active {
+  transform: translateY(0);
+}
+
+/* ========================================
+   INPUT AREA
+   ======================================== */
+
+.sidbot-input-area {
+  padding: 16px 20px 20px;
+  border-top: 1px solid #F3E8FF;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.sidbot-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 2px solid #E9D5FF;
+  border-radius: 24px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+  background: white;
+  color: #1f2937;
+}
+
+.sidbot-input::placeholder {
+  color: #9CA3AF;
+}
+
+.sidbot-input:focus {
+  border-color: #7C3AED;
+}
+
+.sidbot-send {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  flex-shrink: 0;
+}
+
+.sidbot-send:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+}
+
+.sidbot-send:active {
+  transform: scale(0.95);
+}
+
+.sidbot-send svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+}
+
+/* ========================================
+   MOBILE RESPONSIVENESS
+   ======================================== */
+
+@media (max-width: 480px) {
+  .sidbot-widget {
+    bottom: 80px;
+    right: 16px;
+    left: 16px;
+  }
+
+  .sidbot-trigger {
+    position: fixed;
+    bottom: 24px;
+    right: 16px;
+  }
+
+  .sidbot-trigger::after {
+    display: none;
+  }
+
+  .sidbot-window {
+    position: fixed;
+    bottom: 90px;
+    left: 16px;
+    right: 16px;
+    width: auto;
+    height: calc(100vh - 180px);
+    max-height: 500px;
+  }
+}
+
+/* ========================================
+   CTA BUTTONS IN MESSAGES
+   ======================================== */
+
+.sidbot-cta-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+  color: white !important;
+  text-decoration: none;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 14px;
+  margin: 8px 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+}
+
+.sidbot-cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.4);
+}
+
+/* Links in messages */
+.sidbot-message a {
+  color: #7C3AED;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.sidbot-message a:hover {
+  color: #9333EA;
+}
+
+.sidbot-message.bot a {
+  color: #7C3AED;
+}
+
+/* ========================================
+   TYPING ANIMATION
+   ======================================== */
+
+.typing-message .typing-content {
+  display: inline;
+}
+
+/* ========================================
+   DARK MODE SUPPORT
+   ======================================== */
+
+.sidbot-dark .sidbot-window {
+  background: rgba(31, 41, 55, 0.98);
+  box-shadow: 0 20px 60px rgba(124, 58, 237, 0.35), 0 0 0 1px rgba(124, 58, 237, 0.2);
+}
+
+.sidbot-dark .sidbot-message.bot {
+  background: #4B5563;
+  color: #F9FAFB;
+}
+
+.sidbot-dark .sidbot-message.bot a {
+  color: #A78BFA;
+}
+
+.sidbot-dark .sidbot-input {
+  background: #374151;
+  border-color: #4B5563;
+  color: #F9FAFB;
+}
+
+.sidbot-dark .sidbot-input::placeholder {
+  color: #9CA3AF;
+}
+
+.sidbot-dark .sidbot-input-area {
+  border-top-color: #4B5563;
+}
+
+.sidbot-dark .sidbot-chip {
+  background: #374151;
+  border-color: #7C3AED;
+  color: #E9D5FF;
+}
+
+.sidbot-dark .sidbot-chip:hover {
+  background: #7C3AED;
+  color: white;
+}
+
+/* System preference dark mode */
+@media (prefers-color-scheme: dark) {
+  .sidbot-widget:not(.sidbot-light) .sidbot-window {
+    background: rgba(31, 41, 55, 0.98);
+    box-shadow: 0 20px 60px rgba(124, 58, 237, 0.35), 0 0 0 1px rgba(124, 58, 237, 0.2);
+  }
+
+  .sidbot-widget:not(.sidbot-light) .sidbot-message.bot {
+    background: #4B5563;
+    color: #F9FAFB;
+  }
+
+  .sidbot-widget:not(.sidbot-light) .sidbot-message.bot a {
+    color: #A78BFA;
+  }
+
+  .sidbot-widget:not(.sidbot-light) .sidbot-input {
+    background: #374151;
+    border-color: #4B5563;
+    color: #F9FAFB;
+  }
+
+  .sidbot-widget:not(.sidbot-light) .sidbot-input::placeholder {
+    color: #9CA3AF;
+  }
+
+  .sidbot-widget:not(.sidbot-light) .sidbot-input-area {
+    border-top-color: #4B5563;
+  }
+
+  .sidbot-widget:not(.sidbot-light) .sidbot-chip {
+    background: #374151;
+    border-color: #7C3AED;
+    color: #E9D5FF;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+.sidbot-trigger:focus-visible,
+.sidbot-close:focus-visible,
+.sidbot-send:focus-visible,
+.sidbot-chip:focus-visible,
+.sidbot-input:focus-visible {
+  outline: 2px solid #7C3AED;
+  outline-offset: 2px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .sidbot-trigger,
+  .sidbot-window,
+  .sidbot-message,
+  .sidbot-chip,
+  .sidbot-send {
+    animation: none;
+    transition: none;
+  }
+}
