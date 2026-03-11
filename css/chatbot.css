@@ -431,7 +431,7 @@
 
   .sidbot-trigger {
     position: fixed;
-    bottom: 40px;
+    bottom: 120px;
     right: 16px;
   }
 
@@ -441,7 +441,7 @@
 
   .sidbot-window {
     position: fixed;
-    bottom: 110px;
+    bottom: 190px;
     left: 16px;
     right: 16px;
     width: auto;
