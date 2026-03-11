@@ -380,24 +380,17 @@
     // ========================================
     
     showFirstTimeTooltip() {
-      // Check if tooltip has been shown before
-      const tooltipShown = localStorage.getItem(CONFIG.tooltipShownKey);
+      // Check if user has opened chat before
+      const chatOpenedBefore = localStorage.getItem(CONFIG.tooltipShownKey);
       
-      if (!tooltipShown) {
-        // Add class to show tooltip
+      console.log('SidBot: Tooltip check - chatOpenedBefore:', chatOpenedBefore);
+      
+      if (!chatOpenedBefore) {
+        // Always show tooltip when chat is closed
         this.trigger.classList.add('show-tooltip');
-        
-        // Hide tooltip after 5 seconds or on first interaction
-        const hideTooltip = () => {
-          this.trigger.classList.remove('show-tooltip');
-          localStorage.setItem(CONFIG.tooltipShownKey, 'true');
-        };
-        
-        // Hide on click
-        this.trigger.addEventListener('click', hideTooltip, { once: true });
-        
-        // Auto-hide after 5 seconds
-        setTimeout(hideTooltip, 5000);
+        console.log('SidBot: Tooltip shown - class added');
+      } else {
+        console.log('SidBot: Tooltip not shown - already opened before');
       }
     }
 
@@ -597,6 +590,11 @@
       this.isOpen = true;
       this.window.classList.add('active');
       this.trigger.setAttribute('aria-label', 'Close chat with Sid Bot');
+      
+      // Hide tooltip permanently after first open
+      this.trigger.classList.remove('show-tooltip');
+      localStorage.setItem(CONFIG.tooltipShownKey, 'true');
+      
       this.input.focus();
       
       // Show welcome message if first time

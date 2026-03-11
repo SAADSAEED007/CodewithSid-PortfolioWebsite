@@ -45,11 +45,11 @@
   fill: white;
 }
 
-/* Tooltip */
+/* Tooltip - shown when .show-tooltip class is present or on hover */
 .sidbot-trigger::after {
   content: "Chat with Sid Bot 👋";
   position: absolute;
-  right: 70px;
+  right: 65px;
   top: 50%;
   transform: translateY(-50%);
   background: #1f2937;
@@ -64,27 +64,19 @@
   transition: opacity 0.3s ease, visibility 0.3s ease;
   pointer-events: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10000;
 }
 
+/* Always show tooltip when .show-tooltip class is present (higher priority) */
+.sidbot-trigger.show-tooltip::after {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Show tooltip on hover */
 .sidbot-trigger:hover::after {
   opacity: 1;
   visibility: visible;
-}
-
-/* First-time tooltip - always visible */
-.sidbot-trigger.show-tooltip::after {
-  opacity: 1;
-  visibility: visible;
-  animation: tooltip-pulse 2s ease-in-out infinite;
-}
-
-@keyframes tooltip-pulse {
-  0%, 100% {
-    transform: translateY(-50%) scale(1);
-  }
-  50% {
-    transform: translateY(-50%) scale(1.05);
-  }
 }
 
 /* Pulse Animation */
